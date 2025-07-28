@@ -16,9 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from api.views import ShortURLView
+from api.views import ShortURLView, ShortURLStatsView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('shorturls', ShortURLView.as_view())
+    path('shorturls', ShortURLView.as_view()),
+    path('shorturls/<str:shortcode>/', ShortURLStatsView.as_view()),
+
 ]

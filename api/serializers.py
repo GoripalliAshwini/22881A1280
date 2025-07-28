@@ -16,3 +16,16 @@ class ShortURLSerializer(serializers.ModelSerializer):
 
     def get_expiry(self, obj):
         return obj.expiry.isoformat()
+class ShortURLStatsSerializer(serializers.ModelSerializer):
+    createdAt = serializers.SerializerMethodField()
+    expiresAt = serializers.SerializerMethodField()
+
+    class Meta:
+        model = ShortURL
+        fields = ['shortcode', 'url', 'createdAt', 'expiresAt']
+
+    def get_createdAt(self, obj):
+        return obj.created_at.isoformat()
+
+    def get_expiresAt(self, obj):
+        return obj.expiry.isoformat()

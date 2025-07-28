@@ -6,10 +6,11 @@ class ShortURL(models.Model):
     url = models.URLField()
     shortcode = models.CharField(max_length=10, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    validity = models.IntegerField(default=30)  # in minutes
-
+    validity = models.IntegerField(default=30)  
+    clicks = models.IntegerField(default=0) 
     @property
     def expiry(self):
         return self.created_at + timedelta(minutes=self.validity)
 
-# Create your models here.
+
+

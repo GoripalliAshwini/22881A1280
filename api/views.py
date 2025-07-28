@@ -6,6 +6,8 @@ from .models import ShortURL
 from .serializers import ShortURLSerializer
 import random
 import string
+from django.shortcuts import get_object_or_404
+
 
 class ShortURLView(APIView):
     def post(self, request):
@@ -21,3 +23,10 @@ class ShortURLView(APIView):
             return Response(response_data, status=201)
         return Response(serializer.errors, status=400)
 
+from .serializers import ShortURLStatsSerializer
+
+class ShortURLStatsView(APIView):
+    def get(self, request, shortcode):
+        short_url = get_object_or_404(ShortURL, shortcode=shortcode)
+        serializer = ShortURLStatsSerializer(short_url)
+        return Response(serializer.data, status=status.HTTP_200_OK)
